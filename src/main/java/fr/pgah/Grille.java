@@ -54,11 +54,11 @@ public class Grille {
     return nbNaviresRestants;
   }
 
-  public void setCar(int[] coords, char car) {
+  private void setCar(int[] coords, char car) {
     grille[coords[0]][coords[1]] = car;
   }
 
-  public char getCar(int[] coords) {
+  private char getCar(int[] coords) {
     return grille[coords[0]][coords[1]];
   }
 

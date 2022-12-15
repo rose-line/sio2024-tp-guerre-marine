@@ -6,7 +6,7 @@ public class Jeu {
   private Joueur joueur1;
   private Joueur joueur2;
   private Joueur joueurCourant;
-  private ServiceEntreesClavier serviceEntrees;
+  ServiceEntreesClavier serviceEntrees;
 
   public Jeu(int tailleGrille) {
     TailleGrille = tailleGrille;
@@ -58,7 +58,7 @@ public class Jeu {
   }
 
   private void faireJouerJoueurCourant() {
-    int[] coordsTir = demanderCoordonneesTir(joueurCourant, autreJoueur());
+    int[] coordsTir = joueurCourant.demanderCoordonneesTir(autreJoueur());
     boolean touche = autreJoueur().recevoirTir(coordsTir);
     if (touche) {
       System.out.println(joueurCourant.getNom() + ", VOUS AVEZ COULÉ UN NAVIRE ADVERSE !");
@@ -74,22 +74,5 @@ public class Jeu {
 
   private boolean pasDeGagnant() {
     return !joueur1.aPerdu() && !joueur2.aPerdu();
-  }
-
-  private int[] demanderCoordonneesTir(Joueur joueur, Joueur joueurAdverse) {
-    int[] coordonnees;
-    boolean coordonneesInterdites;
-    do {
-      coordonneesInterdites = false;
-      serviceEntrees.setMessagePrompt(joueur.getNom() + ", entrez les coordonnées de votre tir");
-      serviceEntrees.setMessageErreur("Coordonnées invalides. Veuillez respecter le format.");
-      coordonnees = serviceEntrees.demanderEntrees();
-      if (joueurAdverse.aDejaRecuTirSur(coordonnees)) {
-        System.out
-            .println("Vous avez déjà tiré à cet endroit. Choisissez des coordonnées différentes.");
-        coordonneesInterdites = true;
-      }
-    } while (coordonneesInterdites);
-    return coordonnees;
   }
 }
